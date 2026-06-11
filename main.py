@@ -5,8 +5,12 @@ from src.engine.model import ActionRecognizer
 
 def main():
     # 1. Configurações Globais
+
     # Para testar antes do dataset chegar, você pode colocar 0 para usar sua webcam
-    VIDEO_SOURCE = "rtsp://mivia-cam:mivia-camppac04@192.168.68.114:554/stream1"  
+    VIDEO_SOURCE = ""
+    
+    #WEBCAM
+    # VIDEO_SOURCE = "rtsp://mivia-cam:mivia-camppac04@192.168.68.114:554/stream1"  
     CONFIDENCE_THRESHOLD = 0.80  # 80% de certeza mínima
     
     print("[INFO] Iniciando o pipeline de Videomonitoramento...")
@@ -26,7 +30,9 @@ def main():
     # Variáveis de estado para a interface gráfica
     ultima_acao = "Analisando..."
     ultima_confianca = 0.0
-    
+
+    buffer.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1) # Força o buffer da câmera a ter apenas 1 frame
+
     # 3. O Loop Infinito (O Coração do Sistema)
     while True:
         start_time = time.time()
